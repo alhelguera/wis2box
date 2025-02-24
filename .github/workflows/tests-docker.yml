@@ -67,9 +67,9 @@ jobs:
       env:
         STATION_METADATA: /data/wis2box/metadata/station/brazil.csv
       run: |
-        output = $(python3 wis2box-ctl.py execute wis2box metadata station publish-collection --path $STATION_METADATA 2>&1)
-        status = $?
-        error = "Invalid utf-8 in station metadata file."
+        output=$(python3 wis2box-ctl.py execute wis2box metadata station publish-collection --path $STATION_METADATA 2>&1)
+        status=$?
+        error="Invalid utf-8 in station metadata file."
         if [ $status -eq 0 ]; then
           echo "Error: Invalid intput was accepted"
           exit 1
