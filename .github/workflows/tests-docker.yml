@@ -72,6 +72,7 @@ jobs:
         error="Invalid utf-8 in station metadata file."
         if [ $status -eq 0 ]; then
           echo "Error: Invalid intput was accepted"
+          echo "$output"
           exit 1
         fi
         if [[ $output != *"$error"* ]]; then
