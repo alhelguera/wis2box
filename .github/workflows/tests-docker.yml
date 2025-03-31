@@ -68,7 +68,11 @@ jobs:
       env:
         STATION_METADATA: /data/wis2box/metadata/station/brazil.csv
       run: |
-        python3 wis2box-ctl.py execute wis2box metadata station publish-collection --path $STATION_METADATA
+        python3 wis2box-ctl.py execute wis2box metadata station publish-collection --path $STATION_METADATA >> $GITHUB_OUTPUT
+    - name: Check for failure
+      if: ${{ ! contains(steps.test-bad-station-csv.outputs, 'Invalid utf-8 in station metadata file')}}
+      run: 
+        exit 1 
     - name: add CAP data, cap-publish 
       env:
         DISCOVERY_METADATA: /data/wis2box/metadata/discovery/int-wmo-test-cap.yml 
