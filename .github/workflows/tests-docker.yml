@@ -68,9 +68,12 @@ jobs:
       env:
         STATION_METADATA: /data/wis2box/metadata/station/brazil.csv
       run: |
-        python3 wis2box-ctl.py execute wis2box metadata station publish-collection --path $STATION_METADATA >> $GITHUB_OUTPUT
+        {echo "result<<EOF"
+        python3 wis2box-ctl.py execute wis2box metadata station publish-collection --path $STATION_METADATA
+        echo EOF
+        } >> $GITHUB_OUTPUT
     - name: Check for failure
-      if: ${{ ! contains(steps.test-bad-station-csv.outputs, 'Invalid utf-8 in station metadata file')}}
+      if: ${{ ! contains(steps.test-bad-station-csv.outputs.result, 'Invalid utf-8 in station metadata file')}}
       run: 
         exit 1 
     - name: add CAP data, cap-publish 
