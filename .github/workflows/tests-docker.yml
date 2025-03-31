@@ -71,8 +71,9 @@ jobs:
       run: |
         python3 wis2box-ctl.py execute wis2box metadata station publish-collection --path $STATION_METADATA
     - name: Check for failure
-      run: if [[ ${{ steps.test-bad-station-csv.outcome }} == "failure" ]]; then exit 0; else exit 1; 
-        fi
+      if: steps.test-bad-station-csv.outcome != 'failure'
+      run: |
+        exit 1 
     - name: add CAP data, cap-publish 
       env:
         DISCOVERY_METADATA: /data/wis2box/metadata/discovery/int-wmo-test-cap.yml 
