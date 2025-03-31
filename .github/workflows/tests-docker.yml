@@ -67,9 +67,9 @@ jobs:
       id: test-bad-station-csv
       env:
         STATION_METADATA: /data/wis2box/metadata/station/brazil.csv
-      continue-on-error: true
       run: |
         python3 wis2box-ctl.py execute wis2box metadata station publish-collection --path $STATION_METADATA
+      continue-on-error: true
     - name: Check for failure
       if: steps.test-bad-station-csv.outcome != 'failure'
       run: |
